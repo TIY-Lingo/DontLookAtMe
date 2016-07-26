@@ -20,6 +20,8 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="DontLookAtMe_main" target="1.8" />
+      <module name="Dontlookatme_main" target="1.8" />
+      <module name="Dontlookatme_test" target="1.8" />
       <module name="DontLookAtMe_test" target="1.8" />
       <module name="lingo_main" target="1.8" />
       <module name="lingo_test" target="1.8" />
