@@ -54,6 +54,7 @@ public class ApiLookupService {
                 String cleanContent = Jsoup.clean(content, Whitelist.basic());
 
                 article = new Article(result.getTitle(), result.getUrl(), result.getByline(), cleanContent, results.getSection());
+
                 articles.save(article);
             }
             langInjection(article, "french");                               //Run it once for spanish and once for french
