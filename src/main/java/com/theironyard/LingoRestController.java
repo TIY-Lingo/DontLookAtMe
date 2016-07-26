@@ -63,13 +63,13 @@ public class LingoRestController {
             return false;
         }
 //        user1.setTimestamp(LocalDateTime.now());
-        users.save(user1);
+       // users.save(user1);
         session.setAttribute("username", user1.getUsername());
         return true;
     }
 
     @RequestMapping(path = "/registerUser", method = RequestMethod.POST)
-    public Boolean register(@RequestBody User user, HttpServletResponse response, HttpSession session) throws PasswordStorage.CannotPerformOperationException, IOException {
+    public Boolean register(@RequestBody User user, HttpSession session) throws PasswordStorage.CannotPerformOperationException, IOException {
         if(users.findByUsername(user.getUsername())!= null){   // If the username is in the DB return false
             return false;
         }else {                                                 //Otherwise create the user and add it to the DB
