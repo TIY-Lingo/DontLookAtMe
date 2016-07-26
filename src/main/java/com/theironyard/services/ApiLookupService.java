@@ -3,6 +3,7 @@ package com.theironyard.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Article;
+import com.theironyard.entities.Category;
 import com.theironyard.entities.ResultContainter;
 import com.theironyard.entities.Results;
 import org.jsoup.Jsoup;
@@ -52,8 +53,11 @@ public class ApiLookupService {
                     content = content.substring(0, 22999);
                 }
                 String cleanContent = Jsoup.clean(content, Whitelist.basic());
+                System.out.printf("does this show?");
 
-                article = new Article(result.getTitle(), result.getUrl(), result.getByline(), cleanContent, results.getSection());
+                Category category = new Category(results.getSection().toString());
+                article = new Article(result.getTitle(), result.getUrl(), result.getByline(), cleanContent, results.getSection(), category);
+
                 articles.save(article);
             }
             langInjection(article, "french");                               //Run it once for spanish and once for french

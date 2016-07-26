@@ -8,7 +8,7 @@
 @Entity(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
     @Column (nullable = false)
@@ -35,9 +35,9 @@ public class Category {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
-    }
+//    public void setArticles(List<Article> articles) {
+//        this.articles = articles;
+//    }
 
     public void setId(int id) {
         this.id = id;
@@ -50,4 +50,6 @@ public class Category {
     public void setType(String type) {
         this.type = type;
     }
+
+
 }

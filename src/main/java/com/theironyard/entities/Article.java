@@ -1,6 +1,7 @@
 package com.theironyard.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.tools.javac.util.List;
 
 import javax.persistence.*;
 
@@ -45,6 +46,18 @@ public class Article {
     String type;
 
 
+    @ManyToOne
+    Category category;
+
+
+    public Article(String title, String articleUrl, String author, String content, String type, Category category) {
+        this.title = title;
+        this.articleUrl = articleUrl;
+        this.author = author;
+        this.content = content;
+        this.type = type;
+        this.category = category;
+    }
 
     public Article(String title, String articleUrl, String author, String content, String type) {
         this.title = title;
@@ -159,6 +172,16 @@ public class Article {
     public void setFrench3(String french3) {
         this.french3 = french3;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+
 
     @Override
     public String toString() {
