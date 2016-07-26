@@ -19,6 +19,7 @@ import com.theironyard.services.ArticleRepository;
 import com.theironyard.services.UserRepository;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -43,30 +44,33 @@ public class LingoRestController {
     DictionaryRepository dictionaries;
 
     @Autowired
-    CategoryRepository catRepo;
+    CategoryRepository categories;
 
-
+    Server dbui = null;
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
-        Server.createWebServer().start();
+        dbui.createWebServer().start();
         parseDictionary();
 
         Category cat = new Category("business");
         System.out.println(cat);
-        if (catRepo.count() == 0) {
+        if (categories.count() == 0) {
             cat = new Category("business");
             System.out.println(cat.toString());
-            catRepo.save(cat);
+            categories.save(cat);
             cat = new Category("politics");
-            catRepo.save(cat);
+            categories.save(cat);
             cat = new Category("sports");
-            catRepo.save(cat);
+            categories.save(cat);
             cat = new Category("arts");
-            catRepo.save(cat);
+            categories.save(cat);
             cat = new Category("technology");
-            catRepo.save(cat);
+            categories.save(cat);
         }
     }
+
+    @PreDestroy
+    public void destroy(){dbui.stop();}
 
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -115,23 +119,23 @@ public class LingoRestController {
             User userA = users.findByUsername((String) session.getAttribute("username"));
             userA.setLanguage(user.getLanguage());
             if (user.getArts()) {
-                Category cat = catRepo.findFirstByType("arts");
+                Category cat = categories.findFirstByType("arts");
                 userA.getCatList().add(cat);
             }
             if(user.getBusiness()){
-                Category cat = catRepo.findFirstByType("business");
+                Category cat = categories.findFirstByType("business");
                 userA.getCatList().add(cat);
             }
             if(user.getPolitics()){
-                Category cat = catRepo.findFirstByType("politics");
+                Category cat = categories.findFirstByType("politics");
                 userA.getCatList().add(cat);
             }
             if(user.getSports()){
-                Category cat = catRepo.findFirstByType("sports");
+                Category cat = categories.findFirstByType("sports");
                 userA.getCatList().add(cat);
             }
             if(user.getTechnology()){
-                Category cat = catRepo.findFirstByType("technology");
+                Category cat = categories.findFirstByType("technology");
                 userA.getCatList().add(cat);
             }
 
