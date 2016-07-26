@@ -1,9 +1,11 @@
 package com.theironyard;
 
+import com.theironyard.entities.Category;
 import com.theironyard.entities.Dictionary;
 import com.theironyard.entities.ResultContainter;
 import com.theironyard.entities.Results;
 import com.theironyard.services.ApiLookupService;
+import com.theironyard.services.CategoryRepository;
 import com.theironyard.services.DictionaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.Future;
 
@@ -28,6 +31,9 @@ public class LingoApplication implements CommandLineRunner {
 	@Autowired
 	DictionaryRepository dictionaries;
 
+	@Autowired
+	CategoryRepository categories;
+
 	@Override
 	public void run(String... args) throws Exception {
 		long start = System.currentTimeMillis();
@@ -40,8 +46,15 @@ public class LingoApplication implements CommandLineRunner {
 		Future<ResultContainter> page5 = apiLookupService.findResults("https://api.nytimes.com/svc/topstories/v2/business.json?api-key=289858bf10514c09b02e561994f4ab45");
 
 
+		System.out.println(page1.isDone());
 		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
 
+		if(page1.isDone() /*&& page2.isDone() && page3.isDone()&& page4.isDone()&& page5.isDone() */) {
+			System.out.println("page 1 has finished and the if statement is reached");
+
+			System.out.print(categories.count() + " :  " + categories.findOne(0));
+		}
+		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
 	} //end run method
 
 

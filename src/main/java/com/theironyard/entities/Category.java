@@ -20,7 +20,7 @@ public class Category {
 
 
 
-    public Category() {
+    public Category(String sports) {
     }
 
     public int getId() {
