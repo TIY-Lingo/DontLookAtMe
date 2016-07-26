@@ -1,8 +1,10 @@
 package com.theironyard;
 
 import com.theironyard.entities.Article;
+import com.theironyard.entities.Category;
 import com.theironyard.entities.Dictionary;
 import com.theironyard.entities.User;
+import com.theironyard.services.CategoryRepository;
 import com.theironyard.services.DictionaryRepository;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -39,6 +41,9 @@ public class LingoRestController {
 
     @Autowired
     DictionaryRepository dictionaries;
+
+    @Autowired
+    CategoryRepository catRepo;
 
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
@@ -92,12 +97,28 @@ public class LingoRestController {
             throw new Exception("You must Login to view or change preferences!");
         }else {
             User userA = users.findByUsername((String) session.getAttribute("username"));
-            userA.setArts(user.getArts());
-            userA.setBusiness(user.getBusiness());
             userA.setLanguage(user.getLanguage());
-            userA.setPolitics(user.getPolitics());
-            userA.setSports(user.getSports());
-            userA.setTechnology(user.getTechnology());
+            if (user.getArts()) {
+                Category cat = catRepo.findFirstByType("arts");
+                userA.getCatList().add(cat);
+            }
+            if(user.getBusiness()){
+                Category cat = catRepo.findFirstByType("business");
+                userA.getCatList().add(cat);
+            }
+            if(user.getPolitics()){
+                Category cat = catRepo.findFirstByType("politics");
+                userA.getCatList().add(cat);
+            }
+            if(user.getSports()){
+                Category cat = catRepo.findFirstByType("sports");
+                userA.getCatList().add(cat);
+            }
+            if(user.getTechnology()){
+                Category cat = catRepo.findFirstByType("technology");
+                userA.getCatList().add(cat);
+            }
+
             users.save(userA);
             System.out.println("User saved to Database...");
         }
