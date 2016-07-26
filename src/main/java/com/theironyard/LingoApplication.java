@@ -63,8 +63,5 @@ public class LingoApplication implements CommandLineRunner {
 	}
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LingoApplication.class, args);
-
 	}
-
-
 }

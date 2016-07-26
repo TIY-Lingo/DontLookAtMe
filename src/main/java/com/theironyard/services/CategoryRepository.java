@@ -1,12 +1,8 @@
 package com.theironyard.services;
 
-
-import com.theironyard.entities.Categories;
+import com.theironyard.entities.Category;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface CategoryRepository extends CrudRepository<Categories, Integer>{
-
-
+public interface CategoryRepository extends CrudRepository<Category, Integer> {
+    Category findFirstByType(String categoryname);
 }
