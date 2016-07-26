@@ -45,10 +45,25 @@ public class LingoRestController {
     @Autowired
     CategoryRepository catRepo;
 
+    @Autowired
+
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
         Server.createWebServer().start();
         parseDictionary();
+
+        if (catRepo.count() == 0) {
+            Category cat = new Category("business");
+            catRepo.save(cat);
+            cat.setType("politics");
+            catRepo.save(cat);
+            cat.setType("sports");
+            catRepo.save(cat);
+            cat.setType("arts");
+            catRepo.save(cat);
+            cat.setType("technology");
+            catRepo.save(cat);
+        }
     }
 
 
@@ -63,17 +78,18 @@ public class LingoRestController {
             return false;
         }
 //        user1.setTimestamp(LocalDateTime.now());
-       // users.save(user1);
+//        users.save(user1);
         session.setAttribute("username", user1.getUsername());
         return true;
     }
 
     @RequestMapping(path = "/registerUser", method = RequestMethod.POST)
-    public Boolean register(@RequestBody User user, HttpSession session) throws PasswordStorage.CannotPerformOperationException, IOException {
+    public Boolean register(@RequestBody User user, HttpServletResponse response, HttpSession session) throws PasswordStorage.CannotPerformOperationException, IOException {
         if(users.findByUsername(user.getUsername())!= null){   // If the username is in the DB return false
             return false;
         }else {                                                 //Otherwise create the user and add it to the DB
             User user1 = new User(user.getUsername(), PasswordStorage.createHash(user.getPassword()));
+
             users.save(user1);
             session.setAttribute("username", user1.getUsername());
             return true;
