@@ -66,8 +66,6 @@ public class LingoRestController {
         users.save(user1);
         session.setAttribute("username", user1.getUsername());
         return true;
-
-
     }
 
     @RequestMapping(path = "/registerUser", method = RequestMethod.POST)
@@ -149,7 +147,6 @@ public class LingoRestController {
             }
         return articleList;
         }
-
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
