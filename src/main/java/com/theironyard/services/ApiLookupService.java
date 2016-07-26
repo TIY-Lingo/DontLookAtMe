@@ -62,6 +62,7 @@ public class ApiLookupService {
         }
 
         System.out.println(results.getSection() + " thread has completed...");
+
         return new AsyncResult<>(results);
     }
 
