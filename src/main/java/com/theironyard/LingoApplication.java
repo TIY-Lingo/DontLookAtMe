@@ -34,10 +34,11 @@ public class LingoApplication implements CommandLineRunner {
 	@Autowired
 	CategoryRepository categories;
 
+
 	@Override
 	public void run(String... args) throws Exception {
 		long start = System.currentTimeMillis();
-		parseDictionary();
+		// parseDictionary();
 
 		Future<ResultContainter> page1 = apiLookupService.findResults("https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=289858bf10514c09b02e561994f4ab45");
 		Future<ResultContainter> page2 = apiLookupService.findResults("https://api.nytimes.com/svc/topstories/v2/sports.json?api-key=289858bf10514c09b02e561994f4ab45");
