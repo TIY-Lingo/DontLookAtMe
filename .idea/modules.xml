@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DontLookAtMe.iml" filepath="$PROJECT_DIR$/.idea/modules/DontLookAtMe.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DontLookAtMe_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DontLookAtMe_main.iml" group="DontLookAtMe" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DontLookAtMe_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DontLookAtMe_test.iml" group="DontLookAtMe" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dontlookatme.iml" filepath="$PROJECT_DIR$/.idea/modules/Dontlookatme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dontlookatme_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Dontlookatme_main.iml" group="Dontlookatme" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dontlookatme_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Dontlookatme_test.iml" group="Dontlookatme" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lingo.iml" filepath="$PROJECT_DIR$/.idea/modules/lingo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lingo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lingo_main.iml" group="lingo" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lingo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lingo_test.iml" group="lingo" />
