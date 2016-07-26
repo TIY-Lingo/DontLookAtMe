@@ -45,23 +45,25 @@ public class LingoRestController {
     @Autowired
     CategoryRepository catRepo;
 
-    @Autowired
 
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
         Server.createWebServer().start();
         parseDictionary();
 
+        Category cat = new Category("business");
+        System.out.println(cat);
         if (catRepo.count() == 0) {
-            Category cat = new Category("business");
+            cat = new Category("business");
+            System.out.println(cat.toString());
             catRepo.save(cat);
-            cat.setType("politics");
+            cat = new Category("politics");
             catRepo.save(cat);
-            cat.setType("sports");
+            cat = new Category("sports");
             catRepo.save(cat);
-            cat.setType("arts");
+            cat = new Category("arts");
             catRepo.save(cat);
-            cat.setType("technology");
+            cat = new Category("technology");
             catRepo.save(cat);
         }
     }
@@ -144,6 +146,9 @@ public class LingoRestController {
             throw new Exception("You must log in to view this page");
         }else {
             User user = users.findByUsername((String) session.getAttribute("username"));
+
+
+
 
             ArrayList<Iterable<Article>> articleList = new ArrayList<>();
             if (user.getTechnology()){

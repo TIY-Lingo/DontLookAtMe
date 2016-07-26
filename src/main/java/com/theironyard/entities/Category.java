@@ -11,7 +11,7 @@ public class Category {
     @GeneratedValue
     int id;
 
-    @NotNull
+    @Column (nullable = false)
     String type;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -20,7 +20,11 @@ public class Category {
 
 
 
-    public Category(String sports) {
+    public Category(String type) {
+        this.type = type;
+    }
+
+    public Category() {
     }
 
     public int getId() {
