@@ -19,6 +19,7 @@ import com.theironyard.services.ArticleRepository;
 import com.theironyard.services.UserRepository;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -45,26 +46,27 @@ public class LingoRestController {
     @Autowired
     CategoryRepository catRepo;
 
-    @Autowired
-
+    Server dbui = null;
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
-        Server.createWebServer().start();
+        dbui.createWebServer().start();
         parseDictionary();
 
-        if (catRepo.count() == 0) {
-            Category cat = new Category("business");
-            catRepo.save(cat);
-            cat.setType("politics");
-            catRepo.save(cat);
-            cat.setType("sports");
-            catRepo.save(cat);
-            cat.setType("arts");
-            catRepo.save(cat);
-            cat.setType("technology");
-            catRepo.save(cat);
-        }
+//        if (catRepo.count() == 0) {
+//            Category cat = new Category("business");
+//            catRepo.save(cat);
+//            cat.setType("politics");
+//            catRepo.save(cat);
+//            cat.setType("sports");
+//            catRepo.save(cat);
+//            cat.setType("arts");
+//            catRepo.save(cat);
+//            cat.setType("technology");
+//            catRepo.save(cat);
+//        }
     }
+    @PreDestroy
+    public void destroy() {dbui.stop();}
 
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
