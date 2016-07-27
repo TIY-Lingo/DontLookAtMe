@@ -47,14 +47,7 @@ public class LingoApplication implements CommandLineRunner {
 		Future<ResultContainter> page5 = apiLookupService.findResults("https://api.nytimes.com/svc/topstories/v2/business.json?api-key=289858bf10514c09b02e561994f4ab45");
 
 
-		System.out.println(page1.isDone());
-		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
 
-		if(page1.isDone() /*&& page2.isDone() && page3.isDone()&& page4.isDone()&& page5.isDone() */) {
-			System.out.println("page 1 has finished and the if statement is reached");
-
-			System.out.print(categories.count() + " :  " + categories.findOne(0));
-		}
 		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
 	} //end run method
 

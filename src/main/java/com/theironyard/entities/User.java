@@ -40,7 +40,7 @@ public class User{
     @Column
     boolean arts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Category> catList;
 
     public List<Category> getCatList() {

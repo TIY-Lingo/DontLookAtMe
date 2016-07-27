@@ -1,9 +1,7 @@
 package com.theironyard.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.tools.javac.util.List;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "articles" )
@@ -45,18 +43,7 @@ public class Article {
     @Column
     String type;
 
-
-    @ManyToOne
-    Category category;
-
-
-    public Article(String title, String articleUrl, String author, String content, String type, Category category) {
-        this.title = title;
-        this.articleUrl = articleUrl;
-        this.author = author;
-        this.content = content;
-        this.type = type;
-        this.category = category;
+    public Article() {
     }
 
     public Article(String title, String articleUrl, String author, String content, String type) {
@@ -74,15 +61,20 @@ public class Article {
         this.content = content;
     }
 
-    public Article() {
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getArticleUrl() {
+        return articleUrl;
+    }
+
+    public void setArticleUrl(String articleUrl) {
+        this.articleUrl = articleUrl;
     }
 
     public String getAuthor() {
@@ -99,22 +91,6 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getArticleUrl() {
-        return articleUrl;
-    }
-
-    public void setArticleUrl(String articleUrl) {
-        this.articleUrl = articleUrl;
     }
 
     public String getSpan1() {
@@ -141,14 +117,6 @@ public class Article {
         this.span3 = span3;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getFrench1() {
         return french1;
     }
@@ -173,12 +141,12 @@ public class Article {
         this.french3 = french3;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getType() {
+        return type;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setType(String type) {
+        this.type = type;
     }
 
 

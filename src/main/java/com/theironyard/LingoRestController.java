@@ -52,19 +52,17 @@ public class LingoRestController {
         dbui.createWebServer().start();
         parseDictionary();
 
-        Category cat = new Category("business");
+        Category cat = new Category("business", 1);
         System.out.println(cat);
         if (categories.count() == 0) {
-            cat = new Category("business");
-            System.out.println(cat.toString());
             categories.save(cat);
-            cat = new Category("politics");
+            cat = new Category("politics",2);
             categories.save(cat);
-            cat = new Category("sports");
+            cat = new Category("sports",3);
             categories.save(cat);
-            cat = new Category("arts");
+            cat = new Category("arts",4);
             categories.save(cat);
-            cat = new Category("technology");
+            cat = new Category("technology",5);
             categories.save(cat);
         }
     }
@@ -145,32 +143,30 @@ public class LingoRestController {
     }
 
     @RequestMapping(path = "/articles", method = RequestMethod.GET)
-    public ArrayList<Iterable<Article>> getArticles(HttpSession session) throws Exception {
+    public Iterable<Article> getArticles(HttpSession session) throws Exception {
         if (session.getAttribute("username")==null){
             throw new Exception("You must log in to view this page");
         }else {
             User user = users.findByUsername((String) session.getAttribute("username"));
 
+//            ArrayList<Iterable<Article>> articleList = new ArrayList<>();
+//            if (user.getTechnology()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("technology"));
+//            }
+//            if(user.getSports()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("sports"));
+//            }
+//            if(user.getPolitics()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("politics"));
+//            }
+//            if(user.getArts()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("arts"));
+//            }
+//            if (user.getBusiness()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("business"));
+//            }
 
-
-
-            ArrayList<Iterable<Article>> articleList = new ArrayList<>();
-            if (user.getTechnology()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("technology"));
-            }
-            if(user.getSports()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("sports"));
-            }
-            if(user.getPolitics()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("politics"));
-            }
-            if(user.getArts()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("arts"));
-            }
-            if (user.getBusiness()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("business"));
-            }
-        return articleList;
+        return articles.findBy...();
         }
     }
 
