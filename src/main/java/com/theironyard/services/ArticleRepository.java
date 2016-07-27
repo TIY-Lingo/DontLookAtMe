@@ -12,11 +12,18 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends CrudRepository<Article, Integer>{
     Article findByTitle(String title);
-    ArrayList<Article> findArticleByType(String type);
-    Article findById(int Id);
+    Iterable<Article> findByType(String type);
+//    ArrayList<Article> findArticleByType(String type);
+//    Article findById(int Id);
+//    Iterable<Article> findByUserAndCategory(int userId, int categoryId);
+//    Iterable<Article> findByUser(int userID);
 
-//    @Query ("SELECT * from CATEGORY_ARTICLE where CATEGORY_ID = ? AND ")
-//
+    @Query ("SELECT ca.CATEGORY_ID, a.Span1 FROM Articles a \n" +
+            "INNER JOIN CATEGORY_ARTICLE ca ON ca.article_id = a.ID \n" +
+            "INNER JOIN USERS_CATEGORIES uc on uc.catlist_ID = ca.CATEGORY_ID \n" +
+            "WHERE uc.user_id = ?")
+    Iterable<Article> findByUserCatPref(int UserID);
+
 
 
 }
