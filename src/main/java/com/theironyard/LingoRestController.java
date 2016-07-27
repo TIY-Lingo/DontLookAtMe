@@ -149,24 +149,10 @@ public class LingoRestController {
         }else {
             User user = users.findByUsername((String) session.getAttribute("username"));
 
-//            ArrayList<Iterable<Article>> articleList = new ArrayList<>();
-//            if (user.getTechnology()){
-//                articleList.add((Iterable<Article>) articles.findArticleByType("technology"));
-//            }
-//            if(user.getSports()){
-//                articleList.add((Iterable<Article>) articles.findArticleByType("sports"));
-//            }
-//            if(user.getPolitics()){
-//                articleList.add((Iterable<Article>) articles.findArticleByType("politics"));
-//            }
-//            if(user.getArts()){
-//                articleList.add((Iterable<Article>) articles.findArticleByType("arts"));
-//            }
-//            if (user.getBusiness()){
-//                articleList.add((Iterable<Article>) articles.findArticleByType("business"));
-//            }
-
-        return articles.findBy...();
+            System.out.println(user.getCatList().get(0).getType());
+            Iterable<Article> temp = articles.findByUserCatPref(user.getId());
+            System.out.println(temp.toString());
+            return temp;
         }
     }
 
