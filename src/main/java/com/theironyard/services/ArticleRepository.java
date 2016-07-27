@@ -15,6 +15,8 @@ public interface ArticleRepository extends CrudRepository<Article, Integer>{
     ArrayList<Article> findArticleByType(String type);
     Article findById(int Id);
 
+//    @Query ("SELECT * from CATEGORY_ARTICLE where CATEGORY_ID = ? AND ")
+//
 
 
 }

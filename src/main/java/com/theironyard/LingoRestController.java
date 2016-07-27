@@ -19,6 +19,7 @@ import com.theironyard.services.ArticleRepository;
 import com.theironyard.services.UserRepository;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -43,30 +44,31 @@ public class LingoRestController {
     DictionaryRepository dictionaries;
 
     @Autowired
-    CategoryRepository catRepo;
+    CategoryRepository categories;
 
-
+    Server dbui = null;
     @PostConstruct
     public void init() throws SQLException, IOException, InterruptedException {
-        Server.createWebServer().start();
+        dbui.createWebServer().start();
         parseDictionary();
 
-        Category cat = new Category("business");
+        Category cat = new Category("business", 1);
         System.out.println(cat);
-        if (catRepo.count() == 0) {
-            cat = new Category("business");
-            System.out.println(cat.toString());
-            catRepo.save(cat);
-            cat = new Category("politics");
-            catRepo.save(cat);
-            cat = new Category("sports");
-            catRepo.save(cat);
-            cat = new Category("arts");
-            catRepo.save(cat);
-            cat = new Category("technology");
-            catRepo.save(cat);
+        if (categories.count() == 0) {
+            categories.save(cat);
+            cat = new Category("politics",2);
+            categories.save(cat);
+            cat = new Category("sports",3);
+            categories.save(cat);
+            cat = new Category("arts",4);
+            categories.save(cat);
+            cat = new Category("technology",5);
+            categories.save(cat);
         }
     }
+
+    @PreDestroy
+    public void destroy(){dbui.stop();}
 
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -115,23 +117,23 @@ public class LingoRestController {
             User userA = users.findByUsername((String) session.getAttribute("username"));
             userA.setLanguage(user.getLanguage());
             if (user.getArts()) {
-                Category cat = catRepo.findFirstByType("arts");
+                Category cat = categories.findFirstByType("arts");
                 userA.getCatList().add(cat);
             }
             if(user.getBusiness()){
-                Category cat = catRepo.findFirstByType("business");
+                Category cat = categories.findFirstByType("business");
                 userA.getCatList().add(cat);
             }
             if(user.getPolitics()){
-                Category cat = catRepo.findFirstByType("politics");
+                Category cat = categories.findFirstByType("politics");
                 userA.getCatList().add(cat);
             }
             if(user.getSports()){
-                Category cat = catRepo.findFirstByType("sports");
+                Category cat = categories.findFirstByType("sports");
                 userA.getCatList().add(cat);
             }
             if(user.getTechnology()){
-                Category cat = catRepo.findFirstByType("technology");
+                Category cat = categories.findFirstByType("technology");
                 userA.getCatList().add(cat);
             }
 
@@ -141,32 +143,30 @@ public class LingoRestController {
     }
 
     @RequestMapping(path = "/articles", method = RequestMethod.GET)
-    public ArrayList<Iterable<Article>> getArticles(HttpSession session) throws Exception {
+    public Iterable<Article> getArticles(HttpSession session) throws Exception {
         if (session.getAttribute("username")==null){
             throw new Exception("You must log in to view this page");
         }else {
             User user = users.findByUsername((String) session.getAttribute("username"));
 
+//            ArrayList<Iterable<Article>> articleList = new ArrayList<>();
+//            if (user.getTechnology()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("technology"));
+//            }
+//            if(user.getSports()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("sports"));
+//            }
+//            if(user.getPolitics()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("politics"));
+//            }
+//            if(user.getArts()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("arts"));
+//            }
+//            if (user.getBusiness()){
+//                articleList.add((Iterable<Article>) articles.findArticleByType("business"));
+//            }
 
-
-
-            ArrayList<Iterable<Article>> articleList = new ArrayList<>();
-            if (user.getTechnology()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("technology"));
-            }
-            if(user.getSports()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("sports"));
-            }
-            if(user.getPolitics()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("politics"));
-            }
-            if(user.getArts()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("arts"));
-            }
-            if (user.getBusiness()){
-                articleList.add((Iterable<Article>) articles.findArticleByType("business"));
-            }
-        return articleList;
+        return articles.findBy...();
         }
     }
 
